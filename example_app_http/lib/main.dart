@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:example_app_http/key.env';
 
 void main() {
   runApp(const NetworkingApp());
@@ -26,7 +27,7 @@ class _NetworkingAppState extends State<NetworkingApp> {
 
   Future<void> fetchData() async {
     final response = await http.get(Uri.parse(
-        'https://api.themoviedb.org/3/movie/popular?api_key=a48e5344f6acaf1fc303d524164353b1'));
+        'https://api.themoviedb.org/3/movie/popular?api_key=$api_key'));
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['results'] as List<dynamic>;
       setState(() {
@@ -54,6 +55,7 @@ class _NetworkingAppState extends State<NetworkingApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Networking App',
       theme: ThemeData(
         primarySwatch: Colors.teal,
